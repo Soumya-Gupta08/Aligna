@@ -1,0 +1,85 @@
+@import "tailwindcss";
+/* @import url('https://fonts.go/ogleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap'); */
+
+@theme {
+  --color-darkpurple-900: #10002b;
+  --color-darkpurple-800: #240046;
+  --color-darkpurple-700: #3c096c;
+  --color-darkpurple-600: #5a189a;
+  --color-darkpurple-500: #7b2cbf;
+  --color-darkpurple-400: #9d4edd;
+  --color-darkpurple-300: #c77dff;
+  --color-darkpurple-200: #c19ee0;
+  --color-darkpurple-100: #d2b7e5;
+  --color-darkpurple-50: #dac3e8;
+
+  --color-lightyellow-900: #ffd300;
+  --color-lightyellow-800: #ffd81a;
+  --color-lightyellow-700: #ffdc34;
+  --color-lightyellow-600: #ffe14e;
+  --color-lightyellow-500: #ffe568;
+  --color-lightyellow-400: #ffea83;
+  --color-lightyellow-300: #ffee9d;
+  --color-lightyellow-200: #fff3b7;
+  --color-lightyellow-100: #fff7d1;
+  --color-lightyellow-50: #fffceb;
+
+  --color-correct: #b9faf8;
+  --color-dullcorrect: #b8d0eb;
+
+  --color-error: #f72585;
+  --color-sidebar: rgb(30, 0, 63);
+
+  /* --color-darkback:  */
+
+
+  --color-darkpink: #4F1C51;
+  --color-orange: #A55B4B;
+  --color-yellow: #DCA06D;
+  --color-dark: #09122C;
+  --color-text-color: #e9e6ca;
+}
+
+
+@layer components {
+  .flexAll {
+    @apply flex justify-center items-center
+  }
+
+  .button {
+    @apply  cursor-pointer hover:scale-105 hover:shadow-md rounded-3xl;
+  }
+
+  .trans {
+    @apply duration-100 ease-in;
+  }
+}
+
+
+body {
+  background-color: #090017;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+}
+
+p {
+  font-weight: 100;
+}
+
+.glass {
+  color: rgb(255, 255, 255);
+  backdrop-filter: blur(10px);    
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
