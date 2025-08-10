@@ -1,13 +1,13 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 import { subCategory } from "./subcategory.models";
 
-new categorySchema=new mongoose.Schema({
+const categorySchema=new mongoose.Schema({
     name: {
         type: String,
         required: true
 
     },
-    Percentage: {
+    percentage: {
         type: Number
     }, 
     author: {
@@ -16,7 +16,7 @@ new categorySchema=new mongoose.Schema({
     },
     subCategory: [
         {
-            type: Mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: subCategory
         }
     ]   

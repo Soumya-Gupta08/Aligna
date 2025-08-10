@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-new subCategorySchema=new mongoose.Schema({
+const subCategorySchema=new mongoose.Schema({
     name: {
         type: String,
         required: true
