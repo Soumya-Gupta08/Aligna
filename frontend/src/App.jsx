@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {SideBar, Header, Category} from './index.js';
-
+import { Outlet } from 'react-router-dom';
 
 
 function App() {
@@ -8,11 +8,10 @@ function App() {
 
   return (
     <>
-
-      {/* <Header />
-      <SideBar /> */}
-
-      <Category />
+      <SideBar />
+      <Header />
+      <Outlet />
+      
     </>
   )
 }
