@@ -61,6 +61,9 @@ body {
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 400;
+  display: flex;
+  justify-content: center;
+  place-items: center;
 }
 
 p {
