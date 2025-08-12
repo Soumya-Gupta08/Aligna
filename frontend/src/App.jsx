@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import {SideBar, Header, SignUp, Login} from './index.js';
-import { Outlet } from 'react-router-dom';
+import {Home, SignUp, Login} from './index.js';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 
 function App() {
@@ -8,9 +8,12 @@ function App() {
 
   return (
     <>
-      
-      {/* <SignUp /> */}
-      <Login/>
+      <Routes>
+        <Route path='/' element={<Navigate to={'/home'}/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/register' element={<SignUp/>} />
+        <Route path='/home' element={<Home/>} />
+      </Routes>
     </>
   )
 }

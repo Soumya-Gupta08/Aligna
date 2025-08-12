@@ -1,36 +1,51 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ToastContainer} from 'react-toastify'
+import { handleError, handleSuccess } from '../utils';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const copy={...formData};
+    copy[name]=value;
+    setFormData(copy);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    // Basic validation
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
-      return;
+
+    const {username, email, password}=formData;
+    if(!username || !password || !email) {
+      return handleError('All fields are required!!')
     }
-    // TODO: Add your signup logic here (e.g., API call)
-    console.log('Signup data:', formData);
-    alert('Signup successful!');
+    try {
+      const url='http://localhost:8000/users/register';
+      const response=await fetch(url, {
+         method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+         body: JSON.stringify(formData)
+      });
+      const result=await response.json();
+      console.log(result);
+    } catch(err) {
+      handleError('Something went wrong while registering!')
+    }     
+    
+    handleSuccess('Signup successful!');
   };
 
   return (
-    <div className="w-100 max-w-md h-100 mt-10">
-      <form onSubmit={handleSubmit} className="rounded-lg p-8 mb-4 glass">
+    <div className="w-100 max-w-md">
+      <form 
+      onSubmit={handleSubmit} 
+      className="rounded-lg p-8 mb-4 glass">
         <h2 className="text-3xl font-bold text-center text-darkpurple-50 mb-4">Create Account</h2>
         
         <div className="mb-4">
@@ -42,10 +57,9 @@ const SignUp = () => {
             id="username"
             type="text"
             name="username"
-            value={formData.name}
+            value={formData.username}
             onChange={handleChange}
             placeholder="Username"
-            required
           />
         </div>
 
@@ -61,7 +75,6 @@ const SignUp = () => {
             value={formData.email}
             onChange={handleChange}
             placeholder=""
-            required
           />
         </div>
 
@@ -77,18 +90,23 @@ const SignUp = () => {
             value={formData.password}
             onChange={handleChange}
             placeholder=""
-            required
           />
         </div>
 
-        <div className="flexAll">
+        <div className="flexAll flex-col">
           <button
-            className="text-xl w-full hover:bg-lightyellow-500 bg-dullcorrect text-darkpurple-800 font-bold p-4 rounded-lg focus:outline-none focus:shadow-outline"
+            className="text-xl w-full hover:bg-lightyellow-500 bg-dullcorrect text-darkpurple-800 font-bold p-4 rounded-lg focus:outline-none focus:shadow-outline my-3"
             type="submit"
-          >Sign Up
+          >Get Started
           </button>
+          <p className='m-3'>Already have an account ?  
+            <Link 
+            className='m-3 focus:* text-darkpurple-200 underline hover:text-darkpurple-400 focus:text-darkpurple-400' 
+            to={'/login'}>Login</Link>
+          </p>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
