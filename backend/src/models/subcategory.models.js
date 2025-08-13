@@ -5,17 +5,20 @@ const subCategorySchema=new mongoose.Schema({
         type: String,
         required: true
     },
-    completed: {
-        type: Number
-    },
-    totalTasks: {
-        type: Number
-    },
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
         required: true
     },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    totalTasks: {
+        type: Number
+    }
+    
 }, {timestamps: true});
 
 
