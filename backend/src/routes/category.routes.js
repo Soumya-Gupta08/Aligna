@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { verifyJwt } from "../middlewares/Auth.middleware";
+import { verifyJwt } from "../middlewares/Auth.middleware.js";
+import { createCategory, getCategories } from '../controllers/category.controller.js';
 
 
 const router = Router();

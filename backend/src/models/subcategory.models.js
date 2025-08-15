@@ -14,12 +14,9 @@ const subCategorySchema=new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    },
-    totalTasks: {
-        type: Number
     }
     
 }, {timestamps: true});
 
 
-export const subCategory=mongoose.model("subCategory", subCategorySchema);
+export const SubCategory=mongoose.model("SubCategory", subCategorySchema);

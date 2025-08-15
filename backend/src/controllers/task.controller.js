@@ -1,7 +1,7 @@
-import { Task } from "../models/task.models";
+import { Task } from "../models/task.models.js";
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { subCategory } from "../models/subCategory.models.js";
+import { SubCategory } from "../models/subcategory.models.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 
 
@@ -16,7 +16,7 @@ const createTask=asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid deadline format");
     }
 
-    const subCat=await subCategory.findOne({_id:subCategoryId, author:req.user._id});
+    const subCat=await SubCategory.findOne({_id:subCategoryId, author:req.user._id});
     if(!subCat) {
         throw new ApiError(404 ,"You are not authorised to create a task in this subcategory");
     }
@@ -31,7 +31,7 @@ const createTask=asyncHandler(async (req, res) => {
     });
 
     return res.status(201).json(
-        new ApiResponse(201, "Task created successfully", createTask)
+        new ApiResponse(201, "Task created successfully", createdTask)
     )
 });
 
@@ -48,30 +48,27 @@ const getTasks=asyncHandler(async (req, res) => {
     );
 });
 
-export { createTask, getTasks };  
+const updateTaskCompletion=asyncHandler(async (req, res) => {
+    const { taskId }=req.params;
+    const { isCompleted } = req.body;
 
-// const updateTask=asyncHandler(async (req, res) => {
-//     const { taskId } = req.params;
-//     const { name, description, subCategoryId, isCompleted } = req.body;
+    const updatedTask=await Task.findByIdAndUpdate(
+        taskId,
+        { isCompleted: isCompleted },
+        { new: true }
+    );
 
-//     if (!taskId) {
-//         throw new ApiError(400, "Task ID is required");
-//     }
+    if(!updatedTask) {
+        throw new ApiError(404, "Task not found");
+    }
 
-//     const updateFields = {};
-//         if (name) updateFields.title = title;
-//         if (description) updateFields.description = description;
-//         if (subCategoryId) updateFields.subCategoryId = subCategoryId;
-//         if (isCompleted) updateFields.isCompleted = isCompleted;
+    return res.status(200).json(
+        new ApiResponse(200, "Task completion status updated successfully", updatedTask)
+    );  
+})
 
-//     const task = await Task.findByIdAndUpdate(
-//         taskId, updateFields, { new: true }
-//     )
-    
-//     return res.status(200).json(
-//         new ApiResponse(200, "Task updated successfully", task)
-//     )
-// });
+export { createTask, getTasks, updateTaskCompletion };  
+
 
 
 
